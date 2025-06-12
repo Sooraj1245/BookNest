@@ -33,17 +33,30 @@ app.get("/search",async(req,res)=>{
     const query=req.query.q;
     const bookData=[]
     try {
-        const rawBookResult=await axios.get("https://www.googleapis.com/books/v1/volumes",{
+        const rawBookResult=await axios.get("https://openlibrary.org/search.json",{
             params:{
-                q:query,
-                key:"AIzaSyDFabk1-OFMjy8yCFuntfr6HDz2RxQRuqk",
-                maxResults:5
-            }
+                title:query,
+                has_fulltext:"true",
+                language:"eng",
+                limit:6,
+                fields:"key,title,ebook_access,author_name,publisher,cover_i,subtitle"
+            },
+           
         })
-        const bookItems= rawBookResult.data.items;
+        const bookItems= rawBookResult.data.docs;
+        
          bookItems.map((obj)=>{
-            bookData.push({name:obj.volumeInfo.title,id:obj.id});
+            bookData.push({
+                name:obj.title,
+                id:obj.key,
+                // image:obj.volumeInfo.imageLinks.thumbnail,
+                description:obj.subtitle,
+                author:obj.author_name,
+                publisher:obj.publisher,
+                // publishDate:obj.volumeInfo.publishDate
+            });
         });
+        console.log(bookData)
         res.send(bookData);
 
         
