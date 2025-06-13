@@ -46,10 +46,11 @@ app.get("/search",async(req,res)=>{
         const bookItems= rawBookResult.data.docs;
         
          bookItems.map((obj)=>{
-            const workId=obj.key.split("/").splice(-1,1)
             bookData.push({
                 name:obj.title,
-                id:workId.toString(),
+                id:obj.key,
+                author:obj.author_name,
+                cover:obj.cover_i
             });
         });
         console.log(bookData)

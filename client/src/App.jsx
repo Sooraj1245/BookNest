@@ -3,12 +3,14 @@ import Details from "./pages/Details.jsx";
 import Homepage from "./pages/Homepage.jsx";
 import Login from "./pages/Login.jsx";
 import { Routes,Route } from "react-router-dom";
-
+import { BookProvider } from "./components/BookContext.jsx";
 export default function App(){
   return (
-    <Routes>
-      <Route path="/" element={<Homepage />} />
-      <Route path="/book/:id" element={<Details />} />
-    </Routes>
+    <BookProvider>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+          <Route path="/book/works/:id" element={<Details />} />
+      </Routes>
+    </BookProvider>
   )
 }

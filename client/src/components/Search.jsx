@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { useState,useRef,useCallback } from "react"
+import { useState,useRef,useCallback, useContext } from "react"
+import { BookContext } from "./BookContext";
 import axios from 'axios';
 import {AnimatePresence, motion} from 'motion/react'
 import useClickOutside from "../customHooks/useClickOutside";
@@ -12,9 +13,9 @@ export default function Search(){
 
     const navPage=useNavigate();
 
+    const {bookData,setBookData}=useContext(BookContext);
     const [searchItem,setSearchItem]=useState("");
     const [isFocused,setIsFocused]=useState(false);
-    const [books,setBooks]=useState([]);
     const [selectedBook,setSelectedBook]=useState({})
 
     const formRef=useRef();
@@ -46,7 +47,7 @@ export default function Search(){
                 }
             });
             console.log(res)
-            setBooks(res.data);
+            setBookData(res.data);
         } catch (error) {
             console.log(error)
         }
@@ -71,14 +72,14 @@ export default function Search(){
 
     const handleLiClick=(id)=>()=>{
 
-        navPage(`book/${id}`)
+        navPage(`book${id}`)
     }
     useEffect(()=>{
         if(searchItem!==""){
                 debouncedFiltering(searchItem);
         }else{
             clearTimeout(timer.current);
-            setBooks([]);
+            setBookData([]);
             return
         }
     },[searchItem]);
@@ -98,7 +99,7 @@ export default function Search(){
 
                 <button>Go</button>
                 <AnimatePresence>
-                    {books.length>0 && isFocused?(<motion.ul
+                    {bookData.length>0 && isFocused?(<motion.ul
 
                         key="results"
                         initial={{ opacity: 0, scaleY: 0,backgroundColor: "rgba(255,255,255,0)" }}
@@ -107,7 +108,7 @@ export default function Search(){
                         transition={{ duration: 0.3, ease: "easeOut" }}
                         style={{ originY: 0 }}
                     >
-                        {books.map((e,i)=>(
+                        {bookData.map((e,i)=>(
                             <motion.li
                             
                             onClick={handleLiClick(e.id)}
