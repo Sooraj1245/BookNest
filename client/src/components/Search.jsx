@@ -13,8 +13,9 @@ export default function Search(){
     const navPage=useNavigate();
 
     const [searchItem,setSearchItem]=useState("");
-    const [result,setResult]=useState([]);
     const [isFocused,setIsFocused]=useState(false);
+    const [books,setBooks]=useState([]);
+    const [selectedBook,setSelectedBook]=useState({})
 
     const formRef=useRef();
 
@@ -44,7 +45,8 @@ export default function Search(){
                     q:value
                 }
             });
-            setResult(res.data);
+            console.log(res)
+            setBooks(res.data);
         } catch (error) {
             console.log(error)
         }
@@ -76,7 +78,7 @@ export default function Search(){
                 debouncedFiltering(searchItem);
         }else{
             clearTimeout(timer.current);
-            setResult([]);
+            setBooks([]);
             return
         }
     },[searchItem]);
@@ -96,7 +98,7 @@ export default function Search(){
 
                 <button>Go</button>
                 <AnimatePresence>
-                    {result.length>0 && isFocused?(<motion.ul
+                    {books.length>0 && isFocused?(<motion.ul
 
                         key="results"
                         initial={{ opacity: 0, scaleY: 0,backgroundColor: "rgba(255,255,255,0)" }}
@@ -105,7 +107,7 @@ export default function Search(){
                         transition={{ duration: 0.3, ease: "easeOut" }}
                         style={{ originY: 0 }}
                     >
-                        {result.map((e,i)=>(
+                        {books.map((e,i)=>(
                             <motion.li
                             
                             onClick={handleLiClick(e.id)}

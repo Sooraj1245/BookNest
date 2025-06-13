@@ -46,14 +46,10 @@ app.get("/search",async(req,res)=>{
         const bookItems= rawBookResult.data.docs;
         
          bookItems.map((obj)=>{
+            const workId=obj.key.split("/").splice(-1,1)
             bookData.push({
                 name:obj.title,
-                id:obj.key,
-                // image:obj.volumeInfo.imageLinks.thumbnail,
-                description:obj.subtitle,
-                author:obj.author_name,
-                publisher:obj.publisher,
-                // publishDate:obj.volumeInfo.publishDate
+                id:workId.toString(),
             });
         });
         console.log(bookData)
