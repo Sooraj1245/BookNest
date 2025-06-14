@@ -39,7 +39,7 @@ app.get("/search",async(req,res)=>{
                 has_fulltext:"true",
                 language:"eng",
                 limit:6,
-                fields:"key,title,ebook_access,author_name,publisher,cover_i,subtitle"
+                fields:"isbn,title,ebook_access,author_name,key"
             },
            
         })
@@ -48,9 +48,9 @@ app.get("/search",async(req,res)=>{
          bookItems.map((obj)=>{
             bookData.push({
                 name:obj.title,
-                id:obj.key,
+                id:obj.isbn[0]?obj.isbn[0]:obj.isbn,
                 author:obj.author_name,
-                cover:obj.cover_i
+                key:obj.key
             });
         });
         console.log(bookData)

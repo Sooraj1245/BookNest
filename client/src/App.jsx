@@ -9,7 +9,7 @@ export default function App(){
     <BookProvider>
       <Routes>
         <Route path="/" element={<Homepage />} />
-          <Route path="/book/works/:id" element={<Details />} />
+          <Route path="/book/:id" element={<Details />} />
       </Routes>
     </BookProvider>
   )
