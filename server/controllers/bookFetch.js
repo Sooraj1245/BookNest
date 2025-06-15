@@ -2,6 +2,7 @@ import axios from "axios";
 
 export async function searchBookList(req,res){
     const query=req.query.q;
+    const lim=req.query.lim;
     const bookData=[]
     try {
         const rawBookResult=await axios.get("https://openlibrary.org/search.json",{
@@ -9,8 +10,8 @@ export async function searchBookList(req,res){
                 title:query,
                 has_fulltext:"true",
                 language:"eng",
-                limit:6,
-                fields:"isbn,title,ebook_access,author_name"
+                limit:lim,
+                fields:"isbn,title,ebook_access,author_name,cover_i"
             },
            
         })
@@ -21,10 +22,12 @@ export async function searchBookList(req,res){
                 name:obj.title,
                 id:obj.isbn[0]?obj.isbn[0]:obj.isbn,
                 author:obj.author_name,
+                cover:obj.cover_i
             });
         });
+
         console.log(bookData)
-        res.send(bookData);
+        res.status(200).send(bookData);
 
         
     } catch (error) {

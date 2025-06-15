@@ -198,106 +198,7 @@ header>h1{
 
 /* Trending Section */
 
-.trending-sec{
-  margin: 50px 30px;
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-  padding: 20px 0;
-  /* border: 3px solid var(--accent); */
-  border-radius: var(--border-radius);
-  
-}
-.trending-sec>h1{
-  align-self: center;
-  text-align: center;
-}
 
-.trending-cards{
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-  flex-wrap: wrap;
-  gap: 2rem;
-}
-
-/* Card */
-
-.card-container{
-  width: 250px;
-  height: auto;
-  overflow: hidden;
-  border-radius: var(--border-radius);
-  border: 1px solid var(--skeleton-bg);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  gap: 1.2rem;
-  background: var(--card-bg);
-  box-shadow: var(--shadow);
-}
-
-.card-container>.card-img-container>img{
-  width: 100%;
-  object-fit: cover;
-  border-radius: var(--border-radius);
-}
-
-.card-container>p{
-  color: var(--secondary-text);
-}
-
-
-/* Skeleton Card */
-
-
-.card-container>.skeleton-img-container{
-  width: 200px;
-  height: 200px;
-  margin: 0 auto;
-  border-radius: var(--border-radius);
-  background-color: var(--skeleton-bg);
-}
-
-.card-container>.skeleton-text-container{
-  width: 70%;
-  height: 20px;
-  background-color: var(--skeleton-bg);
-  border-radius: var(--border-radius);
-}
-
-.card-container > .skeleton-img-container,
-.card-container > .skeleton-text-container {
-  position: relative;
-  overflow: hidden;
-}
-
-.card-container > .skeleton-img-container::before,
-.card-container > .skeleton-text-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.),
-    transparent
-  );
-  animation: shimmer 1.5s infinite;
-}
-
-@keyframes shimmer {
-  0% {
-    left: -100%;
-  }
-  100% {
-    left: 100%;
-  }
-}
 
 
 /* Catagory */
@@ -605,3 +506,35 @@ header>h1{
   font-size: 1.2rem;
 }
 
+
+
+/* cards */
+
+.card-list-container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 5rem;
+}
+
+.card-container{
+  display: flex;
+  gap: 3rem;
+  justify-content: space-evenly;
+  background: var(--card-bg);
+  padding: 20px;
+}
+
+.card-img-container{
+  width: 150px;
+  overflow: hidden;
+}
+
+.card-img-container>img{
+  width: 100%;
+  object-fit: cover;
+}
+
+.card-text-container{}

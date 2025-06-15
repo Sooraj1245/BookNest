@@ -20,11 +20,14 @@ export default function Card(){
         // <SkeletonLoad />
         <div className="card-container">
             <div className="card-img-container">
-                <img src="../src/assets/harry.jpg"/>
+                <img src="../src/assets/fiction.jpg"/>
             </div>
-            <h3>Book Name</h3>
-            <p>Famous book</p>
-            <FontAwesomeIcon icon={faHeart}/>
+            <div className="card-text-container">
+                <h3>Book Name</h3>
+                <p>Famous book</p>
+                <FontAwesomeIcon icon={faHeart}/>
+            </div>
+            
         </div>
     )
 }

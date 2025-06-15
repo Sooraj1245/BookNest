@@ -43,7 +43,8 @@ export default function Search(){
         try {
             const res=await axios.get("http://localhost:3000/api/search",{
                 params:{
-                    q:value
+                    q:value,
+                    lim:6
                 }
             });
             console.log(res)
@@ -53,7 +54,9 @@ export default function Search(){
         }
     },500);
 
-
+    function handleSubmit(e){
+        navPage(`/api/books`);
+    }
 
     function handleChange(item){
         const trimmedItem=item.trim();
@@ -91,9 +94,11 @@ export default function Search(){
 
 
     return(
-            <form ref={formRef} className="search-form">
+            <form ref={formRef} onSubmit={(e)=>{
+                handleSubmit(new FormData(e.target))
+            }} className="search-form">
                 
-                <input onFocus={handleFocus} onChange={(e)=>handleChange(e.target.value)} value={searchItem} placeholder="Whatchu wanna read today?" className="search-input"></input>
+                <input name="bookQuery" onFocus={handleFocus} onChange={(e)=>handleChange(e.target.value)} value={searchItem} placeholder="Whatchu wanna read today?" className="search-input"></input>
 
                 
 
@@ -116,7 +121,7 @@ export default function Search(){
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -10 }}
-                            transition={{ delay: i* 0.08 }}
+                            transition={{ delay: i* 0.02 }}
                             whileHover={{scale:1.05,color:"var(--primary-accent)"}}
                             >
                                 {e.name}
