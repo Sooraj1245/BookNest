@@ -41,7 +41,7 @@ export default function Search(){
 
         //Server call to recieve book list
         try {
-            const res=await axios.get("http://localhost:3000/search",{
+            const res=await axios.get("http://localhost:3000/api/search",{
                 params:{
                     q:value
                 }
@@ -72,7 +72,7 @@ export default function Search(){
 
     const handleLiClick=(id)=>()=>{
 
-        navPage(`book/${id}`)
+        navPage(`api/book/${id}`)
     }
     useEffect(()=>{
         if(searchItem!==""){

@@ -2,6 +2,7 @@ import e from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import auth from "./routes/auth.js";
+import search from "./routes/search.js"
 import axios from 'axios';
 
 const app=e();
@@ -15,7 +16,9 @@ app.use(cors({
 
 const PORT=3000;
 
-app.use("/auth",auth)
+app.use("/auth",auth);
+
+app.use("/api",search);
 
 
 app.post("/register",(req,res)=>{
@@ -29,38 +32,40 @@ app.listen(PORT,()=>{
 
 
 
-app.get("/search",async(req,res)=>{
-    const query=req.query.q;
-    const bookData=[]
-    try {
-        const rawBookResult=await axios.get("https://openlibrary.org/search.json",{
-            params:{
-                title:query,
-                has_fulltext:"true",
-                language:"eng",
-                limit:6,
-                fields:"isbn,title,ebook_access,author_name,key"
-            },
+
+
+// app.get("/search",async(req,res)=>{
+//     const query=req.query.q;
+//     const bookData=[]
+//     try {
+//         const rawBookResult=await axios.get("https://openlibrary.org/search.json",{
+//             params:{
+//                 title:query,
+//                 has_fulltext:"true",
+//                 language:"eng",
+//                 limit:6,
+//                 fields:"isbn,title,ebook_access,author_name,key"
+//             },
            
-        })
-        const bookItems= rawBookResult.data.docs;
+//         })
+//         const bookItems= rawBookResult.data.docs;
         
-         bookItems.map((obj)=>{
-            bookData.push({
-                name:obj.title,
-                id:obj.isbn[0]?obj.isbn[0]:obj.isbn,
-                author:obj.author_name,
-                key:obj.key
-            });
-        });
-        console.log(bookData)
-        res.send(bookData);
+//          bookItems.map((obj)=>{
+//             bookData.push({
+//                 name:obj.title,
+//                 id:obj.isbn[0]?obj.isbn[0]:obj.isbn,
+//                 author:obj.author_name,
+//                 key:obj.key
+//             });
+//         });
+//         console.log(bookData)
+//         res.send(bookData);
 
         
-    } catch (error) {
-        console.log(error);
-    }
-})
+//     } catch (error) {
+//         console.log(error);
+//     }
+// })
 
 
 
