@@ -5,7 +5,7 @@ import Search from "../components/Search";
 export default function Homepage(){
     return (
         <>
-            <Header />
+            <Header logo="BookNest"/>
             <Search />
             <Catagories />
         </>
