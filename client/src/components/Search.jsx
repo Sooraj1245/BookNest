@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useState,useRef,useCallback, useContext } from "react"
-import { BookContext } from "./BookContext";
 import axios from 'axios';
 import {AnimatePresence, motion} from 'motion/react'
 import useClickOutside from "../customHooks/useClickOutside";
@@ -13,10 +12,9 @@ export default function Search(){
 
     const navPage=useNavigate();
 
-    const {bookData,setBookData}=useContext(BookContext);
+    const [bookData,setBookData]=useState([]);
     const [searchItem,setSearchItem]=useState("");
     const [isFocused,setIsFocused]=useState(false);
-    const [selectedBook,setSelectedBook]=useState({})
 
     const formRef=useRef();
 
@@ -104,7 +102,7 @@ export default function Search(){
 
                 <button>Go</button>
                 <AnimatePresence>
-                    {bookData.length>0 && isFocused?(<motion.ul
+                    {bookData?.length>0 && isFocused?(<motion.ul
 
                         key="results"
                         initial={{ opacity: 0, scaleY: 0,backgroundColor: "rgba(255,255,255,0)" }}
