@@ -4,16 +4,19 @@ export async function searchBookList(req,res){
     const query=req.query.q;
     const lim=req.query.lim;
     const pageNo=req.query.page;
+    const sortWay=req.query.sort;
     const bookData=[]
+    console.log(sortWay)
     try {
         const rawBookResult=await axios.get("https://openlibrary.org/search.json",{
             params:{
-                title:query,
+                q:query,
                 has_fulltext:"true",
                 language:"eng",
-                limit:lim,
+                limit:lim || null,
                 page:pageNo || null,
-                fields:"isbn,title,ebook_access,author_name,cover_i"
+                fields:"isbn,title,ebook_access,author_name,cover_i",
+                sorts:sortWay
             },
            
         })
