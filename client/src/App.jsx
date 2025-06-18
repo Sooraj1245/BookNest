@@ -12,6 +12,7 @@ export default function App(){
         <Route path="/" element={<Homepage />} />
         <Route path="/api/book/:id" element={<Details />} />
         <Route path="/api/books" element={<BookListPage />} />
+        <Route path="/auth" element={<Login />} />
       </Routes>
 
   )

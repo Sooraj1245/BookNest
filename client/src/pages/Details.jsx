@@ -1,7 +1,11 @@
 import { useState,useContext,useEffect } from "react";
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { useParams } from "react-router-dom"
 import useBookFetch from "../customHooks/useBookFetch";
 import fiction from "../assets/fiction.jpg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import Header from "../components/Header";
+import Search from "../components/Search";
 
 export default function Details(){
     const {id}=useParams();
@@ -34,19 +38,23 @@ export default function Details(){
 
     return (
         <>
+        <Header />
+        <Search />
         {selectedBookDetails?(
             <section className="book-details-section">
             <div className="details-main-container">
                 <div className="details-img-container">
                     <img src={selectedBookDetails.img?.src || fiction} />
                 </div>
-                <div className="details-text-container">
-                    <div className="details-text-inner-container">
-                        <div className="details-main-title-container">
-                            <h1>{selectedBookDetails.title}</h1>
-                            <h2>By: {selectedBookDetails.author}</h2>
-                        </div>
+                <div className="content-container-details">
+                    <div className="details-main-text-container">
+                        <h1>{selectedBookDetails.title}</h1>
+                        <h3>By: {selectedBookDetails.author}</h3>
+                    </div>
+                    <div className="details-secondary-text-container">
+                        <h3 style={{textDecoration:"underline", color:"var(--secondary-accent)"}}>Description:</h3>
                         <p>{selectedBookDetails.description}</p>
+                        <FontAwesomeIcon style={{fontSize:"30px",cursor:"pointer"}} icon={faHeart}/>
                     </div>
                 </div>
             </div>

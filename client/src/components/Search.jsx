@@ -73,7 +73,7 @@ export default function Search(){
 
     const handleLiClick=(id)=>()=>{
 
-        navPage(`api/book/${id}`)
+        navPage(`/api/book/${id}`)
     }
     useEffect(()=>{
         if(searchItem!==""){

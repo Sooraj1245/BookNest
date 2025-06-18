@@ -1,11 +1,19 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faHeart } from "@fortawesome/free-regular-svg-icons"
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 
 export default function Card(props){
 
+    const nav=useNavigate();
+    
+    const handleNavigation=(id)=>()=>{
+        nav(`/api/book/${id}`);
+    }
+    
+    
     const imageID=props.cover;
     const [fetchedImage,setFetchedImage]=useState(null);
     async function fetchImage(id) {
@@ -32,14 +40,14 @@ export default function Card(props){
 
 
     return(
-        <div className="card-container">
+        <div onClick={handleNavigation(props.cardID)} className="card-container">
             <div className="card-img-container">
                 <img src={fetchedImage?.src||"../src/assets/fiction.jpg"}/>
             </div>
             <div className="card-text-container">
-                <h3>{props.name}</h3>
-                <p>{props.author?.[0]}</p>
-                <FontAwesomeIcon icon={faHeart}/>
+                <div className="text-div"><h3>{props.name}</h3>
+                <p>{props.author?.[0]}</p></div>
+                <FontAwesomeIcon style={{fontSize:"20px"}} icon={faHeart}/>
             </div>
             
         </div>
